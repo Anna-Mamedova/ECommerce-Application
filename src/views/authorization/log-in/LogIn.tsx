@@ -14,15 +14,25 @@ const clearData = {
 
 export default function SignUp() {
   const [data, setData] = useState(clearData);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   async function getCustometWithToken() {
-    const token = await getToken({
-      email: data.email,
-      password: data.password,
-    });
-    const customer = await getCustomer({ accessToken: token.access_token });
-    setData(clearData);
-    return customer;
+    try {
+      const token = await getToken({
+        email: data.email,
+        password: data.password,
+      });
+      const customer = await getCustomer({ accessToken: token.access_token });
+
+      if (customer.statusCode === 400 || customer.statusCode === 401) {
+        setError(true);
+        setErrorMessage('Incorrect password or email');
+      }
+      return customer;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -34,21 +44,28 @@ export default function SignUp() {
           variant="outlined"
           margin="normal"
           fullWidth
+          error={error}
           value={data.email}
-          onChange={(e) =>
-            setData((prev) => ({ ...prev, email: e.target.value }))
-          }
+          onChange={(e) => {
+            setData((prev) => ({ ...prev, email: e.target.value }));
+            setError(false);
+            setErrorMessage('')
+          }}
         />
         <TextField
           label="Password"
           type="password"
           variant="outlined"
           fullWidth
+          error={error}
+          helperText={errorMessage}
           margin="normal"
           value={data.password}
-          onChange={(e) =>
-            setData((prev) => ({ ...prev, password: e.target.value }))
-          }
+          onChange={(e) => {
+            setData((prev) => ({ ...prev, password: e.target.value }));
+            setError(false);
+            setErrorMessage('')
+          }}
         />
         <Button
           variant="contained"
