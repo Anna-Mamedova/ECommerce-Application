@@ -4,16 +4,26 @@ import { blueGrey } from '@mui/material/colors';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import styles from './LogIn.module.css';
+import { getCustomer, getToken } from './Api-Login';
 
 const grey = blueGrey['A700'];
+const clearData = {
+  email: '',
+  password: '',
+};
 
 export default function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [data, setData] = useState(clearData);
 
-  const handleSignUp = () => {
-    console.log('Signing up:', email, password);
-  };
+  async function getCustometWithToken() {
+    const token = await getToken({
+      email: data.email,
+      password: data.password,
+    });
+    const customer = await getCustomer({ accessToken: token.access_token });
+    setData(clearData);
+    return customer;
+  }
 
   return (
     <Container maxWidth="xs">
@@ -24,8 +34,10 @@ export default function SignUp() {
           variant="outlined"
           margin="normal"
           fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={data.email}
+          onChange={(e) =>
+            setData((prev) => ({ ...prev, email: e.target.value }))
+          }
         />
         <TextField
           label="Password"
@@ -33,14 +45,16 @@ export default function SignUp() {
           variant="outlined"
           fullWidth
           margin="normal"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={data.password}
+          onChange={(e) =>
+            setData((prev) => ({ ...prev, password: e.target.value }))
+          }
         />
         <Button
           variant="contained"
           style={{ backgroundColor: grey }}
           fullWidth
-          onClick={handleSignUp}
+          onClick={getCustometWithToken}
           sx={{ mt: 2 }}
         >
           Log in
