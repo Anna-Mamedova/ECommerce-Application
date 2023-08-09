@@ -5,3 +5,8 @@ export enum HttpMethod {
   PUT = 'PUT',
   PATCH = 'PATCH'
 }
+
+export enum statusCodes {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+}

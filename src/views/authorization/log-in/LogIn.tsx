@@ -5,17 +5,31 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import styles from './LogIn.module.css';
 import { getCustomer, getToken } from './Api-Login';
+import { statusCodes } from '../../../enums/auth.enum';
 
 const grey = blueGrey['A700'];
-const clearData = {
+const formFieldsDefault = {
   email: '',
   password: '',
 };
 
 export default function SignUp() {
-  const [data, setData] = useState(clearData);
+  const [data, setData] = useState(formFieldsDefault);
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(formFieldsDefault);
+
+  function handleError(statusCode: statusCodes) {
+    if (
+      statusCode === statusCodes.BAD_REQUEST ||
+      statusCode === statusCodes.UNAUTHORIZED
+    ) {
+      setError(true);
+      setErrorMessage({
+        email: 'Incorrect password or email',
+        password: 'Incorect password or email',
+      });
+    }
+  }
 
   async function getCustometWithToken() {
     try {
@@ -24,11 +38,8 @@ export default function SignUp() {
         password: data.password,
       });
       const customer = await getCustomer({ accessToken: token.access_token });
+      handleError(customer.statusCode);
 
-      if (customer.statusCode === 400 || customer.statusCode === 401) {
-        setError(true);
-        setErrorMessage('Incorrect password or email');
-      }
       return customer;
     } catch (error) {
       console.error(error);
@@ -45,11 +56,12 @@ export default function SignUp() {
           margin="normal"
           fullWidth
           error={error}
+          helperText={errorMessage.email}
           value={data.email}
           onChange={(e) => {
             setData((prev) => ({ ...prev, email: e.target.value }));
             setError(false);
-            setErrorMessage('')
+            setErrorMessage(formFieldsDefault);
           }}
         />
         <TextField
@@ -58,13 +70,13 @@ export default function SignUp() {
           variant="outlined"
           fullWidth
           error={error}
-          helperText={errorMessage}
+          helperText={errorMessage.password}
           margin="normal"
           value={data.password}
           onChange={(e) => {
             setData((prev) => ({ ...prev, password: e.target.value }));
             setError(false);
-            setErrorMessage('')
+            setErrorMessage(formFieldsDefault);
           }}
         />
         <Button
