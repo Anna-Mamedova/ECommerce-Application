@@ -38,6 +38,7 @@ export default function SignUp() {
         password: data.password,
       });
       const customer = await getCustomer({ accessToken: token.access_token });
+
       handleError(customer.statusCode);
 
       return customer;

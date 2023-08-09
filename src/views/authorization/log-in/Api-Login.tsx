@@ -3,7 +3,7 @@ import { IDataCustomer, IDataForm } from '../../../interfaces/auth.interface';
 export const getCustomer = async ({ accessToken }: IDataCustomer) => {
   try {
     const response = await fetch(
-      'https://api.europe-west1.gcp.commercetools.com/chat_gpt_team/me',
+      `${process.env.CTP_API_URL}/chat_gpt_team/me`,
       {
         method: 'GET',
         headers: {
@@ -19,14 +19,14 @@ export const getCustomer = async ({ accessToken }: IDataCustomer) => {
 };
 
 export const getToken = async ({ email, password }: IDataForm) => {
-  const clientId = 'eSDhgpWc3Xe0STDfwcr409jN';
-  const clientSecret = 'Lr8lxqqkaddkGVCRo09_lU3c55rdfUcc';
+  const clientId = process.env.CTP_CLIENT_ID;
+  const clientSecret = process.env.CTP_CLIENT_SECRET;
   const credentials = `${clientId}:${clientSecret}`;
   const encodedCredentials = btoa(credentials);
 
   try {
     const response = await fetch(
-      'https://auth.europe-west1.gcp.commercetools.com/oauth/chat_gpt_team/customers/token',
+      `${process.env.CTP_AUTH_URL}/oauth/chat_gpt_team/customers/token`,
       {
         method: 'POST',
         headers: {

@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const baseConfig = {
   entry: path.resolve(__dirname, './src/index.tsx'),
@@ -48,6 +49,7 @@ const baseConfig = {
       filename: 'style.[contenthash].css',
     }),
     new CleanWebpackPlugin(),
+      new Dotenv(),
   ],
 };
 
