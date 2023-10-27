@@ -1,0 +1,15 @@
+.pages__link {
+  margin-right: 10px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  color: var(--secondary-color);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pages__link.active,
+.pages__link:hover {
+  background-color: #95959530;
+}

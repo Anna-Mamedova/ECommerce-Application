@@ -1,0 +1,17 @@
+export enum Countries {
+  DE = 'Germany (DE)',
+  FR = 'France (FR)',
+  GB = 'United Kingdom (GB)',
+  IT = 'Italy (IT)',
+  ES = 'Spain (ES)',
+  UA = 'Ukraine (UA)',
+  PL = 'Poland (PL)',
+  SE = 'Sweden (SE)',
+  NO = 'Norway (NO)',
+  FI = 'Finland (FI)',
+  DK = 'Denmark (DK)',
+  CH = 'Switzerland (CH)',
+  AT = 'Austria (AT)',
+  GR = 'Greece (GR)',
+  PT = 'Portugal (PT)',
+}

@@ -1,0 +1,8 @@
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #000000e3;
+  --accent-color:  rgb(165 233 255);
+  --accent-color-hover:  rgb(117, 221, 255);
+  --primary-color-hover: #d3d3d337;
+  --font-family: Arial, Helvetica, sans-serif;
+}

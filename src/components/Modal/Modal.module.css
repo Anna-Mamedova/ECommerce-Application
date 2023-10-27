@@ -1,0 +1,14 @@
+.modal_window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close {
+  width: 30px;
+  position: absolute;
+  font-size: 2.5rem;
+  top: 10px;
+  left: 10px;
+  z-index: 99;
+}

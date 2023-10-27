@@ -1,0 +1,78 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  margin-left: 10px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 4px;
+  min-width: 105px;
+  max-height: 34px;
+  box-shadow: 0 5px 9px -8px #7e7a7a;
+}
+
+.btn:last-child {
+  background-color: var(--accent-color);
+}
+
+.btn:last-child:hover {
+  background-color: var(--accent-color-hover);
+}
+
+.btn:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 900px) {
+  .menu {
+    flex-direction: column;
+    row-gap: 10px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    opacity: 0;
+    transition: all 0.4s ease;
+    padding: 20px 0;
+    z-index: 3;
+    background-color: var(--primary-color);
+    text-align: center;
+  }
+
+  .menu.active {
+    right: 0;
+    opacity: 1;
+  }
+
+  .overlay {
+    position: absolute;
+    opacity: 0;
+    top: 62px;
+    right: 100%;
+    background-color: rgba(0, 0, 0, 0.432);
+    transition: right 0.4s ease;
+    z-index: 2;
+  }
+
+  .overlay.active {
+    right: 0;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .menu a,
+  .btn {
+    margin: 0;
+    width: 80%;
+    text-align: center;
+    max-width: 80%;
+  }
+}
